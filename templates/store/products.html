@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Меню - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/products.css' %}">
+{% endblock %}
+
+{% block main %}МЕНЮ{% endblock %}
+
+{% block content %}
+    <div class="menu-container">
+        <form method="get" action="{% url 'products_list' %}" class="search-form">
+            <div class="menu-containers">
+                <input type="text" id="name" name="name" value="{{ name_query }}" placeholder="Пошук:">
+            <select id="category" name="category">
+                <option value="" {% if not category_filter %}selected{% endif %}>Всі категорії</option>
+                {% for category in categories %}
+                    <option value="{{ category.name }}" {% if category.name == category_filter %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <div class="slider-container">
+                <div class="slider">
+                  <input type="range" id="slider_min" min="0" max="300" oninput="updateRangeValue('slider_min', 'price_min')">
+                </div>
+                <input type="number" id="price_min" name="price_min" min="0" placeholder="Ціна: від" readonly>
+              </div>
+              
+              <div class="slider-container">
+                <div class="slider">
+                  <input type="range" id="slider_max" min="0" max="300" oninput="updateRangeValue('slider_max', 'price_max')">
+                </div>
+                <input type="number" id="price_max" name="price_max" min="0" placeholder="Ціна: до" readonly>
+              </div>
+              
+              <button type="submit" onclick="applyFilters()">Застосувати</button>
+              
+              <!-- <script>
+                function updateRangeValue(sliderId, inputId) {
+                  var sliderValue = document.getElementById(sliderId).value;
+                  document.getElementById(inputId).value = sliderValue;
+                }
+              
+                function applyFilters() {
+                  var priceMin = document.getElementById('price_min').value;
+                  var priceMax = document.getElementById('price_max').value;
+                  console.log('Price Min:', priceMin);
+                  console.log('Price Max:', priceMax);
+                }
+              </script> -->
+            </div>
+
+
+        <div class="categories-container">
+            {% for category in categories %}
+                <div class="category-box">
+                    <div class="category-text">
+                        <h2>{% if category.icon %}
+                            <img src="{{ category.icon.url }}" alt="{{ category.name }}" width="50" height="50">
+                        {% endif %} {{ category.name }}</h2>
+                    </div>
+
+                    <ul class="products-list">
+                        {% for product in products %}
+                            {% if product.category == category %}
+                                <li class="product-box">
+                                    {% if product.image %}
+                                        <a href="{% url 'product' product_id=product.id %}">
+                                            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100" height="100">
+                                        </a>
+                                    {% endif %}
+                                    <div class="product-info">
+                                        <strong>{{ product.name }}</strong>
+                                        <br>
+                                        <p>Ціна: {{ product.price }} грн.</p>
+                                        {% if user.is_authenticated %}
+                                            <form method="post" action="{% url 'add_to_cart' product_id=product.id %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="next" value="{{ request.path }}">
+                                                <button type="submit">Додати в кошик</button>
+                                            </form>                    
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

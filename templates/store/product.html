@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ product.name }} - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/product.css' %}">
+{% endblock %}
+
+{% block main %}{% endblock %}
+
+{% block image%}
+        <div class="image-container">
+            <img src="{% static 'store/img/bg4.jpg' %}" alt="bgbg">
+        </div>
+    {% endblock %}
+
+{% block content %}
+    <div class="product-details">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded-image">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p>Ціна: {{ product.price }} грн.</p>
+            <p>{{ product.description }}</p>
+
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'add_to_cart' product_id=product.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit">Додати до кошика</button>
+                </form>    
+            {% else %}
+                <p>Увійдіть, щоб додати товар до кошика.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="review-details">
+        <div class="add-review">
+            {% if user.is_authenticated %}
+                {% if not user_review %}
+                    <h2>Додати відгук:</h2>
+                    <form method="post" action="{% url 'product' product_id=product.id %}">
+                        {% csrf_token %}
+                        {{ form.text.label_tag }}
+                        {{ form.rating.label_tag }}
+                        {{ form.rating }}
+                        <textarea name="{{ form.text.name }}" id="{{ form.text.id_for_label }}" style="min-width: 1300px; max-width: 1500px; min-height: 150px; max-height: 200px;"></textarea>
+                        <button type="submit">Надіслати відгук</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="reviews">
+            <h2>Відгуки:</h2>
+            {% if reviews %}
+                <ul>
+                    {% for review in reviews %}
+                        <li>
+                            <strong>{{ review.user.username }}{% if user == review.user %} (Я){% endif %}</strong> - Оцінка: {{ review.rating }}<br>
+                            {{ review.text }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Поки що немає</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

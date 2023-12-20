@@ -1,0 +1,121 @@
+.content-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding-right: 35px;
+}
+
+.content-container-reservation{
+	display: flex;
+	justify-content: center;
+}
+
+.content-container h2 {
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+.date-form-container {
+	margin-left: -4px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.contents-containers{
+	/* max-width: 875px;
+	padding-left: 310px; */
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	margin-bottom: 65px;
+}
+
+input[type=customer_name_text]{
+	width: 150px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    background-color: #ECFCEB;
+    margin-right: 16px;
+	margin-bottom: 10px;
+}
+
+input [type=submit]{
+    /* border: 2px solid #325e3d; */
+    width: 149px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    background-color: #ECFCEB;
+    margin-right: 30px;
+}
+
+/* input[type=submit]{
+	background-color: #11ff00;
+} */
+
+label[type=customer_name]{
+	margin-right: 90px;
+}
+label[type=customer_email]{
+	margin-right: 78px;
+}
+
+
+.tables-container {
+	position: relative;
+	width: 80vw;
+	height: 40vw;
+	background-color: #f3ebdd;
+	border: 3px solid #314b37;
+	border-radius: 10px;
+	margin: auto;
+	box-sizing: border-box;
+}
+
+.table {
+	position: absolute;
+	/* border: 2px solid black; */
+	border-radius: 10px;
+	overflow: hidden;
+	background: url(../img/table.png) no-repeat center center;
+	background-size: 100%;
+}
+
+.table a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	color: rgba(0, 0, 0, 0);
+	text-decoration: none;
+}
+
+.table.selected {
+	border: 1px solid #314b37;
+}
+
+.table.already-reserved {
+	opacity: 25%;
+	color: white;
+}
+
+.oval-table {
+	border-radius: 50%;
+	background: url(../img/table_oval.png) no-repeat center center;
+	background-size: 100%;
+}
+
+.rectangle2-table {
+	position: absolute;
+	border-radius: 10px;
+	overflow: hidden;
+	background: url(../img/table_6.png) no-repeat center center;
+	background-size: 100%;
+}

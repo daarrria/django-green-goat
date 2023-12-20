@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2 style="font-weight: bold;">Бронювання підтверджено!</h2>
+    <p style="font-weight: bold;">Дякуємо, що обрали саме GreenGoat, {{ reservation.customer_name }}!</p>
+    <p style="font-weight: bold;">Чекатимемо Вас {{ reservation.date|date:"Y-m-d" }}</p>
+
+    <p style="font-weight: bold;">А саме на цей email({{ reservation.customer_email }}) ми надсилатимемо Вам усі Наші оновлення щодо ресторану GreenGoat кожен понеділок ☺</p>
+    <h2 style="font-weight: bold;">Заброньовані Місця:</h2>
+    <ul>
+        {% for reserved_table in reservation.reserved_tables.all %}
+            <li style="font-weight: bold;">Ваш стіл № {{ reserved_table.table.id }} — {% if reserved_table.table.shape == 'rectangle' %}
+                {{ 'прямокутний ' }}
+            {% elif reserved_table.table.shape == 'rectangle2' %}
+                {{ 'прямокутний' }}
+            {% elif reserved_table.table.shape == 'oval' %}
+                {{ 'овальний' }}
+            {% else %}
+                {{ reserved_table.table.shape }}
+            {% endif %}, на {{ reserved_table.table.seats }} осіб.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

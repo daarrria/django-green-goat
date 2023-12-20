@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Оформлення замовлення - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/order.css' %}">
+{% endblock %}
+
+{% block main %}Оформлення замовлення{% endblock %}
+
+{% block image%}
+    <div class="image-container">
+        <img src="{% static 'store/img/bg5.jpg' %}" alt="bgbg">
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'order' %}">
+        {% csrf_token %}
+
+        <p type="button_delivery_address">
+            <label for="delivery_address " type="text_delivery_address">Адреса доставки:</label>
+            <input type="delivery_address" name="delivery_address" required><br>
+        </p>
+    
+        <p type="button_delivery_address">
+            <label for="preferred_delivery_time" type="text_delivery_address_datetime">Оберіть час та дату доставки:</label>
+            <input type="datetime-local" name="preferred_delivery_time" min="{{ default_delivery_time }}" value="{{ default_delivery_time }}" required><br>
+        </p>
+
+        <p type="button_delivery_address">
+            <label for="phone_number" type="text_delivery_address">Номер телефону:</label>
+            <input type="delivery_address" name="phone_number" placeholder="+380-000-000-000" pattern="^\+380\d{9}$" title="Введіть номер у форматі +380XXXXXXXXX" required><br>
+        </p>
+
+        <p type="button_delivery_address">
+            <label for="full_name" type="text_delivery_address_pib">ПІБ:</label>
+            <input type="delivery_address" name="full_name" required><br>
+        </p>
+    
+        <p>
+            <button type="submit_delivery_address">Замовити</button>
+        </p>
+    </form>
+{% endblock %}

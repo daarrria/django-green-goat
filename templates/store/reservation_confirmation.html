@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Бронювання підтверджено - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/reservation.css' %}">
+{% endblock %}
+
+{% block main %}Ваше бронювання підтверджено{% endblock %}
+
+{% block image%}
+    <div class="image-container">
+        <img src="{% static 'store/img/bg6.jpg' %}" alt="bgbg">
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="center-container">
+        <p>Дата бронювання: {{ reservation.date|date:"Y-m-d" }}</p>
+        <p>На кого заброньовано: {{ reservation.customer_name }}</p>
+        <p>Email: {{ reservation.customer_email }}</p>
+
+        <h2>ЗАБРОНЬОВАНІ МІСЦЯ:</h2>
+        <ul>
+            {% for reserved_table in reservation.reserved_tables.all %}
+                <li>Номер {{ reserved_table.table.id }} — {% if reserved_table.table.shape == 'rectangle' %}
+                    {{ 'прямокутний' }}
+                {% elif reserved_table.table.shape == 'rectangle2' %}
+                    {{ 'прямокутний' }}
+                {% elif reserved_table.table.shape == 'oval' %}
+                    {{ 'овальний' }}
+                {% else %}
+                    {{ reserved_table.table.shape }}
+                {% endif %}, на {{ reserved_table.table.seats }} осіб</li>
+            {% endfor %}
+        </ul>
+        
+        <a href="{% url 'products_list' %}"><button type="button">На головну</button></a>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GREEN GOAT{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'store/css/base.css' %}">
+    <script src="{% static 'store/js/main.js' %}" defer></script>
+    {% block static %}{% endblock %}
+</head>
+<body>
+
+    <header>
+        <h1><a href="{% url 'products_list' %}">GREEN GOAT</a></h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'products_list' %}"><img src="{% static 'store/img/products_list.png' %}" alt="Products List">ГОЛОВНА</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'reservation' %}"><img src="{% static 'store/img/reservation.png' %}" alt="Reservation">БРОНЬ</a></li>
+                    <li><a href="{% url 'cart' %}"><img src="{% static 'store/img/cart.png' %}" alt="Cart">КОШИК</a></li>
+                    <li><a href="{% url 'logout' %}"><img src="{% static 'store/img/logout.png' %}" alt="Logout">ВИЙТИ</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}"><img src="{% static 'store/img/login.png' %}" alt="Login">УВІЙТИ</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% block image%}
+        <div class="image-container">
+            <img src="{% static 'store/img/bg.jpg' %}" alt="bgbg">
+        </div>
+    {% endblock %}
+
+    <div class="main-container">
+        <h1 class="main-title">{% block main %}Головна{% endblock %}</h1>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Приходьте голодними, йдіть задоволеними!</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Вхід - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/auth.css' %}">
+{% endblock %}
+
+{% block main %}Вхід{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url 'products_list' %}{% endif %}">
+        {{ form.as_p }}
+        <button type="submit">Увійти</button>
+        <br>
+        <p>Не маєте облікового запису? <a href="{% url 'register' %}"><button type="button">Зареєструватися</button></a></p>
+    </form>
+{% endblock %}

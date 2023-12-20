@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Реєстрація - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/auth.css' %}">
+{% endblock %}
+
+{% block main %}Реєстрація{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зареєструватися</button>
+        <p>Вже маєте обліковий запис? <a href="{% url 'login' %}"><button type="button">Увійти</button></a></p>
+    </form>
+{% endblock %}

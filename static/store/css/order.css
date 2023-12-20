@@ -1,0 +1,89 @@
+form {
+	max-width: 550px;
+	margin: 0 auto;
+	padding: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 2px solid #325e3d;
+	border-radius: 10px;
+	margin-bottom: 80px;
+}
+
+input {
+    width: 180px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    background-color: #dfebde;
+    margin-right: 30px;
+}
+
+button[type=submit_delivery_address]{
+	display: flex;
+	margin-top: 40px;
+}
+
+/* input[type=delivery_address]{
+    border: 2px solid #325e3d;
+    width: 170px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    background-color: #dfebde;
+    margin-left: 30px;
+} */
+
+p[type=button_delivery_address]{
+	margin-left: 0px;
+	max-width: 550px;
+	display: flex;
+	align-items: center;
+    justify-content: flex-end
+}
+
+label[type=text_delivery_address]{
+	font-size: 18px;
+	margin-right: 140px;
+}
+label[type=text_delivery_address_datetime]{
+	font-size: 18px;
+	margin-right: 40px;
+}
+label[type=text_delivery_address_pib]{
+	font-size: 18px;
+	margin-right: 255px;
+}
+
+form button {
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-family: Arial;
+	font-size: 16px;
+
+	cursor: pointer;
+    background-color: #325e3d;
+    color: #ECFCEB;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 auto;
+}
+
+form button:hover,
+form button:active {
+	background-color: #314b37;
+	color: white;
+}
+
+form p a {
+	color: #333;
+}
+
+form p a:hover,
+form p a:active {
+	color: #555;
+}

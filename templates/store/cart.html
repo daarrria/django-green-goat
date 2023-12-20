@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Кошик - GREEN GOAT
+{% endblock %}
+
+{% block static %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/cart.css' %}">
+{% endblock %}
+
+{% block main %}{% endblock %}
+
+{% block image%}
+    <div class="image-container">
+        <img src="{% static 'store/img/bg2.jpg' %}" alt="bgbg">
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if products_in_cart %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Фото</th>
+                    <th>Назва</th>
+                    <th>Ціна</th>
+                    <th>Кількість</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in products_in_cart %}
+                    <tr>
+                        <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="thumbnail"></td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{% widthratio item.product.price 1 item.quantity %} грн.</td>
+                        <td>
+                            <form type="post" method="post" action="{% url 'update_cart' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                <button type="submit" name="action" value="decrease">-</button>
+                                {{ item.quantity }}
+                                <button type="submit" name="action" value="increase">+</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="order-button-container">
+            <p class="total-price">Загальна вартість: {{ total_price }} грн.</p>
+
+            <a href="{% url 'order' %}"><button class="order-button">Замовити</button></a>
+        </div>
+    {% else %}
+        <div class="order-button-container">
+            <h2>Ваш кошик порожній</h2>
+        </div>
+    {% endif %}
+{% endblock %}
